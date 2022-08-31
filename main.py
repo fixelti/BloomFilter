@@ -20,3 +20,7 @@ class BloomFilter(object):
 
     def _hash(self, item, K):
         return self._hash_djb2(str(K) + item)
+
+    def add_to_filter(self, item):
+        for i in range(self.number_hash_function):
+            self.bloom_filter[self._hash(item, i)] = 1
