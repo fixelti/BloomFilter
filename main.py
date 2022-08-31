@@ -11,3 +11,12 @@ class BloomFilter(object):
         self.bloom_filter.setall(0)
 
         self.number_hash_function = round((self.size / self.number_expected_elements) * math.log(2))
+
+    def _hash_djb2(self, s):
+        hash = 5381
+        for x in s:
+            hash = ((hash << 5) + hash) + ord(x)
+        return hash % self.size
+
+    def _hash(self, item, K):
+        return self._hash_djb2(str(K) + item)
